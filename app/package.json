@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "encore dev",
+    "prod": "encore production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.36.0",
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^4.6.1",
+    "webpack-notifier": "^1.15.0"
+  }
+}
