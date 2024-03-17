@@ -13,34 +13,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TachesRepository::class)]
 
-#[ApiResource(
-    operations: [
-        new Get(normalizationContext: ['groups' => 'taches:item']),
-        new GetCollection(normalizationContext: ['groups' => 'taches:list'])
-    ],
-    order: ['createdAt' => 'DESC'],
-    paginationEnabled: false,
-)]
-
 
 class Taches
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['taches:list', 'taches:item'])]
+    #[Groups(['minimal'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['taches:list', 'taches:item'])]
+    #[Groups(['minimal'])]
     private ?string $titre = null;
 
     #[ORM\ManyToMany(targetEntity: Checklists::class, mappedBy: 'taches')]
-    private Collection $Checklists;
+    private Collection $checklists;
 
     public function __construct()
     {
-        $this->Checklists = new ArrayCollection();
+        $this->checklists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,13 +61,13 @@ class Taches
      */
     public function getChecklists(): Collection
     {
-        return $this->Checklists;
+        return $this->checklists;
     }
 
     public function addChecklist(Checklists $checklist): static
     {
-        if (!$this->Checklists->contains($checklist)) {
-            $this->Checklists->add($checklist);
+        if (!$this->checklists->contains($checklist)) {
+            $this->checklists->add($checklist);
             $checklist->addTach($this);
         }
 
@@ -85,7 +76,7 @@ class Taches
 
     public function removeChecklist(Checklists $checklist): static
     {
-        if ($this->Checklists->removeElement($checklist)) {
+        if ($this->checklists->removeElement($checklist)) {
             $checklist->removeTach($this);
         }
 
