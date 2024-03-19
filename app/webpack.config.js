@@ -22,7 +22,9 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('checklist', './assets/js/checklist/index.js')
+    .addEntry('checklist', './assets/js/checklist.js')
+    .addEntry('tache', './assets/js/tache.js')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
 	
 	.autoProvidejQuery()

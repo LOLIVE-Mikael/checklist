@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('tache') }}
+{% endblock %}
+
 {% block title %}Task List{% endblock %}
 
 {% block body %}
+	<div id="task-list">
     {% for taskId, form in forms %}
-	
-			{{ form_start(form, {'action': path('taches_modification', {'taskId': taskId}), 'attr': {'id': 'form_task_' ~ taskId, 'class': 'form-modification'}}) }}
-				{{ form_row(form.titre) }}
-                {{ form_row(form.save) }}
-                {{ form_row(form.delete) }}
-            {{ form_end(form) }}
+		{% include 'taches/formtask.html.twig' with { 'form': form, 'taskId': taskId } %}
     {% endfor %}
+	</div>
+	
 	{{ form_start(newTaskForm, {'action': path('taches_creation'), 'attr': {'id': 'new_task'}}) }}
         {{ form_row(newTaskForm.titre) }}
-		{{ form_row(newTaskForm.save) }}
+		{{ form_row(newTaskForm.id) }}
+		{{ form_row(newTaskForm.save, {'attr': {'id': 'save_button'}}) }}
     {{ form_end(newTaskForm) }}
+
 {% endblock %}

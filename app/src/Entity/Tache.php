@@ -2,31 +2,33 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping\Metadata;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use App\Repository\TachesRepository;
+use App\Repository\TacheRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: TachesRepository::class)]
+#[ORM\Entity(repositoryClass: TacheRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read']],
+)]
 
-
-class Taches
+class Tache
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['minimal'])]
+    #[Groups(['read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['minimal'])]
+    #[Groups(['read'])]
     private ?string $titre = null;
 
-    #[ORM\ManyToMany(targetEntity: Checklists::class, mappedBy: 'taches')]
+    #[ORM\ManyToMany(targetEntity: Checklist::class, mappedBy: 'taches')]
     private Collection $checklists;
 
     public function __construct()

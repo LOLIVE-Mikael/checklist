@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Checklists;
+use App\Entity\Checklist;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,11 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Checklists[]    findAll()
  * @method Checklists[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ChecklistsRepository extends ServiceEntityRepository
+class ChecklistRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Checklists::class);
+        parent::__construct($registry, Checklist::class);
     }
 
 //    /**

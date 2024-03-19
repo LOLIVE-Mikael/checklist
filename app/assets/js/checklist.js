@@ -1,4 +1,4 @@
-// assets/js/checklist/index.js
+// assets/js/checklist.js
 
 $(document).ready(function() {
     // Écouteur d'événement pour le changement de sélection de la checklist
@@ -8,7 +8,7 @@ $(document).ready(function() {
 			if(checklistId !== ''){
 			// Requête AJAX pour récupérer les données de la checklist sélectionnée
 			$.ajax({
-				url: '/checklistajax/checklist',
+				url: '/ajax/checklist',
 				method: 'GET',
 				data: { checklistId: checklistId },
 				dataType: 'html',
@@ -34,7 +34,7 @@ $(document).ready(function() {
 		var confirmation = confirm("Êtes-vous sûr de vouloir dissocier cette tâche de la checklist ?");
 		if (confirmation) {
 			$.ajax({
-				url: '/checklistajax/removetask',
+				url: '/ajax/checklist/removetask',
 				method: 'POST',
 				data: {
 					taskId: taskId,
@@ -104,7 +104,7 @@ $(document).ready(function() {
 		var confirmation = confirm("Êtes-vous sûr de vouloir associer cette tâche de la checklist ?");
 		if (confirmation) {
 			$.ajax({
-				url: '/checklistajax/addtask',
+				url: '/ajax/checklist/addtask',
 				method: 'POST',
 				data: {
 					taskId: taskId,

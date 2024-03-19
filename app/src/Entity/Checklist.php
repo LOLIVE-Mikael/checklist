@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use App\Repository\ChecklistsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ChecklistsRepository::class)]
-class Checklists
+#[ORM\Entity(repositoryClass: ChecklistRepository::class)]
+#[ApiResource()]
+class Checklist
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +21,7 @@ class Checklists
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
-    #[ORM\ManyToMany(targetEntity: Taches::class, inversedBy: 'Checklists')]
+    #[ORM\ManyToMany(targetEntity: Tache::class, inversedBy: 'Checklists')]
     private Collection $taches;
 
     public function __construct()
@@ -56,7 +59,7 @@ class Checklists
         return $this->taches;
     }
 
-    public function addTache(Taches $tache): static
+    public function addTache(Tache $tache): static
     {
 	
         if (!$this->taches->contains($tache)) {
@@ -66,7 +69,7 @@ class Checklists
         return $this;
     }
 
-    public function removeTache(Taches $tache): static
+    public function removeTache(Tache $tache): static
     {
         $this->taches->removeElement($tache);
 

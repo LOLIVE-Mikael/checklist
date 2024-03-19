@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Checklists;
-use App\Repository\ChecklistsRepository;
+use App\Entity\Checklist;
+use App\Repository\ChecklistRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,10 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class TechnicianController extends AbstractController
 {
     #[Route('/technician/{checklistId?}', name: 'technician_dashboard', requirements: ['checklistId' => '\d+'])]
-    public function index(?int $checklistId, Request $request, ChecklistsRepository $checklistsRepository): Response
+    public function index(?int $checklistId, Request $request, ChecklistRepository $checklistRepository): Response
     {
 		if($checklistId){
-			$selectedChecklist = $checklistsRepository->find($checklistId);
+			$selectedChecklist = $checklistRepository->find($checklistId);
             $tasks = $selectedChecklist->getTaches();
 		} else {
 			$selectedChecklist=NULL;
@@ -26,7 +26,7 @@ class TechnicianController extends AbstractController
 		
 		
         // Récupérer toutes les checklists
-        $checklists = $checklistsRepository->findAll();
+        $checklists = $checklistRepository->findAll();
 
         // Créer le formulaire
 		$form = $this->createFormBuilder()
@@ -51,10 +51,10 @@ class TechnicianController extends AbstractController
     }
 	
 	#[Route('/technician/selection', name: 'technician_selection_checklist')]
-    public function readChecklist(Request $request,ChecklistsRepository $checklistsRepository): Response
+    public function readChecklist(Request $request,ChecklistRepository $checklistRepository): Response
     {	
 		// Récupérer toutes les checklists
-        $checklists = $checklistsRepository->findAll();
+        $checklists = $checklistRepository->findAll();
 
         // Créer le formulaire
 		$form = $this->createFormBuilder()

@@ -8,7 +8,7 @@ use App\Repository\TachesRepository;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use App\Repository\UsersRepository;
 
-class ManagerControllerTest extends WebTestCase
+class ChecklistControllerTest extends WebTestCase
 {
 
    public function testIndexPage()

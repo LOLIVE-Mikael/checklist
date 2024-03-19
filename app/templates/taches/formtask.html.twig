@@ -1,0 +1,6 @@
+{{ form_start(form, {'action': path('taches_modification', {'taskId': taskId}), 'attr': {'id': 'form_task_' ~ taskId, 'class': 'form-modification'}}) }}
+	{{ form_row(form.titre) }}
+	{{ form_row(form.id) }}
+    {{ form_row(form.update, {'attr': {'class': 'update_button'}}) }}
+    {{ form_row(form.delete, {'attr': {'class': 'delete_button'}}) }}
+{{ form_end(form) }}

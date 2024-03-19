@@ -7,27 +7,27 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Repository\TachesRepository;
-use App\Entity\Checklists;
+use App\Repository\TacheRepository;
+use App\Entity\Checklist;
 
 class FormServiceAddTask
 {
     private $formFactory;
-    private $tachesRepository;
+    private $tacheRepository;
 
-    public function __construct(FormFactoryInterface $formFactory, TachesRepository $tachesRepository)
+    public function __construct(FormFactoryInterface $formFactory, TacheRepository $tacheRepository)
     {
         $this->formFactory = $formFactory;
-        $this->tachesRepository = $tachesRepository;
+        $this->tacheRepository = $tacheRepository;
     }
 
-    public function createAjoutTacheForm(Checklists $checklist = null)
+    public function createAjoutTacheForm(Checklist $checklist = null)
     {
         if ($checklist) {
-            $choices = $this->tachesRepository->findTasksNotInChecklist($checklist);
+            $choices = $this->tacheRepository->findTasksNotInChecklist($checklist);
             $idChecklist = $checklist->getId();
         } else {
-            $choices = $this->tachesRepository->findAll();
+            $choices = $this->tacheRepository->findAll();
             $idChecklist = null;
         }
 

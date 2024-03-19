@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Taches;
-use App\Entity\Checklists;
+use App\Entity\Tache;
+use App\Entity\Checklist;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,19 +15,19 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Taches[]    findAll()
  * @method Taches[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TachesRepository extends ServiceEntityRepository
+class TacheRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Taches::class);
+        parent::__construct($registry, Tache::class);
     }
 
 	/* récupérer les tâches qui ne sont pas associés à cette checlist */
-	public function findTasksNotInChecklist(Checklists $checklist)
+	public function findTasksNotInChecklist(Checklist $checklist)
     {
         return $this->createQueryBuilder('t')
             ->where('t NOT IN (
-                SELECT taches FROM App\Entity\Checklists c
+                SELECT taches FROM App\Entity\Checklist c
                 JOIN c.taches taches
                 WHERE c = :checklist
             )')
