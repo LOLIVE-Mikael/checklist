@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping\Metadata;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Repository\TacheRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +15,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TacheRepository::class)]
 #[ApiResource(
+	operations: [
+	    new Delete(),
+	    new Patch(),
+		new Post(),
+	],
     normalizationContext: ['groups' => ['read']],
 )]
 
@@ -70,7 +77,7 @@ class Tache
     {
         if (!$this->checklists->contains($checklist)) {
             $this->checklists->add($checklist);
-            $checklist->addTach($this);
+            $checklist->addTache($this);
         }
 
         return $this;
@@ -79,7 +86,7 @@ class Tache
     public function removeChecklist(Checklists $checklist): static
     {
         if ($this->checklists->removeElement($checklist)) {
-            $checklist->removeTach($this);
+            $checklist->removeTache($this);
         }
 
         return $this;
